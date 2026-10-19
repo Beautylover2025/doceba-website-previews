@@ -44,9 +44,9 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <span class="tag reveal">Bielefeld, Paulusstraße 3</span>
-        <h1 class="reveal">Zeigen Sie, wie Sie strahlen</h1>
-        <p class="reveal">Gesicht, Körper, Laser und GREEN PEEL® in Bielefeld. Schauen Sie sich an, was wir machen, und buchen Sie in wenigen Schritten.</p>
+        <span class="tag">Bielefeld, Paulusstraße 3</span>
+        <h1>Zeigen Sie, wie Sie strahlen</h1>
+        <p>Gesicht, Körper, Laser und GREEN PEEL® in Bielefeld. Schauen Sie sich an, was wir machen, und buchen Sie in wenigen Schritten.</p>
         <div class="hero-btns"><a class="btn" href="https://taplink.cc/ledermacode">Termin buchen</a></div>
       </div>
       <div class="hero-tiles">
@@ -222,6 +222,9 @@
   var b=document.querySelector('.menu-btn'),m=document.getElementById('mm');
   b.addEventListener('click',function(){var o=m.classList.toggle('open');b.setAttribute('aria-expanded',o);});
   m.addEventListener('click',function(e){if(e.target.tagName==='A'){m.classList.remove('open');b.setAttribute('aria-expanded','false');}});
+  var h=document.querySelector('.site-header');
+  function sc(){h.classList.toggle('is-scrolled',window.scrollY>8);}
+  sc();window.addEventListener('scroll',sc,{passive:true});
   var f=document.getElementById('kf');
   f.addEventListener('submit',function(e){e.preventDefault();f.classList.add('sent');});
 })();

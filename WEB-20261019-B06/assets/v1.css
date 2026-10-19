@@ -1,6 +1,7 @@
 :root{
   --bg:#0F1012;--panel:#1A1C1F;--gold:#D9C4A3;--ink:#F4F0E8;--muted:#B9B5AC;--em:#2E6B5E;--line:rgba(217,196,163,.28);
   --pad:clamp(1.25rem,4vw,3rem);--sec:clamp(4rem,8vw,7rem);
+  --ease-out:cubic-bezier(0.23,1,0.32,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -14,9 +15,9 @@ h3{font-size:clamp(1.25rem,2vw,1.6rem)}
 p{max-width:62ch}
 .wrap{max-width:1280px;margin:0 auto;padding:0 var(--pad)}
 .eyebrow{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.8rem 1.8rem;background:var(--em);color:#fff;text-decoration:none;font-weight:500;letter-spacing:.03em;border:1px solid var(--em);transition:transform .25s cubic-bezier(.2,.8,.2,1),background .25s}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.8rem 1.8rem;background:var(--em);color:#fff;text-decoration:none;font-weight:500;letter-spacing:.03em;border:1px solid var(--em);transition:transform 160ms var(--ease-out),background-color 200ms var(--ease-out)}
 .btn:hover{background:#357d6e}
-.btn:active{transform:translateY(1px)}
+.btn:active{transform:scale(.97)}
 .btn:focus-visible,a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .btn.ghost{background:transparent;border-color:var(--line);color:var(--ink)}
 .btn.ghost:hover{border-color:var(--gold)}
@@ -33,7 +34,7 @@ p{max-width:62ch}
 .lang a[aria-current]{color:var(--gold);border-bottom:1px solid var(--gold)}
 .menu-btn{background:none;border:1px solid var(--line);color:var(--ink);min-width:44px;min-height:44px;font:inherit;cursor:pointer}
 .mobile-menu{display:none;border-top:1px solid var(--line);padding:.5rem 0 1rem}
-.mobile-menu.open{display:block}
+.mobile-menu.open{display:block;transform-origin:top;animation:menu-in 200ms var(--ease-out)}
 .mobile-menu a{display:flex;min-height:48px;align-items:center;text-decoration:none;border-bottom:1px solid rgba(217,196,163,.12)}
 .nav-right{display:flex;align-items:center;gap:.5rem}
 
@@ -52,8 +53,8 @@ section{padding:var(--sec) 0}
 
 /* treatments */
 .t-grid{display:grid;gap:1.25rem}
-.t-card{background:var(--panel);display:flex;flex-direction:column;border-top:1px solid var(--gold)}
-.t-card img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.t-card{background:var(--panel);display:flex;flex-direction:column;border-top:1px solid var(--gold);overflow:hidden}
+.t-card img{width:100%;aspect-ratio:16/10;object-fit:cover;transition:transform 280ms var(--ease-out)}
 .t-body{padding:1.6rem 1.5rem 1.8rem}
 .t-body p{color:var(--muted);margin:.7rem 0 1rem}
 .t-body ul{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem .5rem}
@@ -108,7 +109,7 @@ label{display:grid;gap:.35rem;font-size:.88rem;color:var(--muted)}
 input,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);padding:.75rem .9rem;min-height:48px;width:100%}
 textarea{min-height:120px;resize:vertical}
 .thanks{display:none;color:var(--gold)}
-form.sent .thanks{display:block}
+form.sent .thanks{display:block;animation:rise-sm 280ms var(--ease-out)}
 form.sent .btn,form.sent label{display:none}
 
 /* footer */
@@ -146,4 +147,22 @@ footer{border-top:1px solid var(--line);padding:3rem 0 max(110px,calc(110px + en
 }
 @media (min-width:1000px){.nav-links{display:flex}.menu-btn,.mobile-menu{display:none!important}}
 @media (min-width:768px) and (max-width:1000px){.hero-media img{aspect-ratio:1/1}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+/* motion */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+@keyframes rise-sm{from{opacity:0;transform:translateY(6px)}}
+@keyframes menu-in{from{opacity:0;transform:translateY(-6px)}}
+@keyframes fade{from{opacity:0}}
+.hero-copy>*{animation:rise 560ms var(--ease-out) backwards}
+.hero-copy>:nth-child(2){animation-delay:60ms}
+.hero-copy>:nth-child(3){animation-delay:120ms}
+.hero-copy>:nth-child(4){animation-delay:180ms}
+.hero-copy>:nth-child(5){animation-delay:240ms}
+.hero-media{animation:rise 600ms var(--ease-out) 240ms backwards}
+@media (hover:hover) and (pointer:fine){.t-card:hover img{transform:scale(1.03)}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .hero-copy>*,.hero-media,.mobile-menu.open,form.sent .thanks{animation-name:fade;animation-duration:150ms;animation-delay:0s}
+  .btn:active{transform:none}
+  .t-card:hover img{transform:none}
+}

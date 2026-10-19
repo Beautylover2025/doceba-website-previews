@@ -34,12 +34,12 @@
 <section class="hero">
   <div class="wrap">
     <div>
-      <span class="label reveal">Bielefeld, Oststraße</span>
-      <h1 class="reveal">Zwei Generationen. Ein Gespür für <em>Schönheit.</em></h1>
-      <p class="lead reveal">Fußpflege, Wimpern- und Augenbrauenlifting sowie Waxing und Sugaring in Bielefeld – von Elvira und Celine, mit Handarbeit und familiärer Atmosphäre.</p>
-      <a class="btn reveal" href="#kontakt">Termin anfragen</a>
+      <span class="label">Bielefeld, Oststraße</span>
+      <h1>Zwei Generationen. Ein Gespür für <em>Schönheit.</em></h1>
+      <p class="lead">Fußpflege, Wimpern- und Augenbrauenlifting sowie Waxing und Sugaring in Bielefeld – von Elvira und Celine, mit Handarbeit und familiärer Atmosphäre.</p>
+      <a class="btn" href="#kontakt">Termin anfragen</a>
     </div>
-    <figure class="reveal"><img src="img/original/o03.jpg" alt="Elvira und Celine im Schwarzweiß-Porträt, Mutter und Tochter im Profil" width="1333" height="1471"></figure>
+    <figure><img src="img/original/o03.jpg" alt="Elvira und Celine im Schwarzweiß-Porträt, Mutter und Tochter im Profil" width="1333" height="1471"></figure>
   </div>
 </section>
 
@@ -202,6 +202,9 @@
   var b=document.querySelector('.burger'),n=document.getElementById('nav');
   b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
   n.addEventListener('click',function(e){if(e.target.tagName==='A'){n.classList.remove('open');b.setAttribute('aria-expanded','false')}});
+  var h=document.querySelector('header'),on=false;
+  function sc(){var x=window.scrollY>8;if(x!==on){on=x;h.classList.toggle('scrolled',x)}}
+  window.addEventListener('scroll',sc,{passive:true});sc();
   document.getElementById('kontaktformular').addEventListener('submit',function(e){e.preventDefault();this.classList.add('fertig')});
 })();
 </script>

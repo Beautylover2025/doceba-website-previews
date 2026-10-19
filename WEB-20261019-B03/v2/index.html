@@ -34,12 +34,12 @@
 <section class="hero">
   <div class="wrap">
     <div>
-      <span class="tag reveal">Bielefeld · Lash, Brow, Füße</span>
-      <h1 class="reveal">Lashlift, <i>der auffällt.</i></h1>
-      <p class="sub reveal">Brow- und Lashlift, Korean Lashlift und Fachfußpflege in Bielefeld.</p>
-      <a class="btn reveal" href="#kontakt">Jetzt Termin sichern</a>
+      <span class="tag">Bielefeld · Lash, Brow, Füße</span>
+      <h1>Lashlift, <i>der auffällt.</i></h1>
+      <p class="sub">Brow- und Lashlift, Korean Lashlift und Fachfußpflege in Bielefeld.</p>
+      <a class="btn" href="#kontakt">Jetzt Termin sichern</a>
     </div>
-    <figure class="reveal"><img src="../img/original/o02.jpg" alt="Celine im Schwarzweiß-Porträt mit gepflegten Brauen und Wimpern" width="1000" height="1088"></figure>
+    <figure><img src="../img/original/o02.jpg" alt="Celine im Schwarzweiß-Porträt mit gepflegten Brauen und Wimpern" width="1000" height="1088"></figure>
   </div>
 </section>
 
@@ -126,10 +126,10 @@
       <h2 class="reveal">Häufige Fragen</h2>
     </div>
     <div>
-      <details class="reveal"><summary>Wie läuft ein Termin ab?</summary><p>Wir besprechen zuerst Ihren Wunsch, dann beginnt die Behandlung in Ruhe. Zum Schluss zeigen wir Ihnen das Ergebnis und geben Tipps für die Pflege zu Hause.</p></details>
-      <details class="reveal"><summary>Wie vereinbare ich einen Termin?</summary><p>Rufen Sie uns an, schreiben Sie uns auf Instagram oder nutzen Sie das Formular unten. Termine gibt es nach Vereinbarung.</p></details>
-      <details class="reveal"><summary>Brauche ich einen Termin für ein Lashlift, wenn ich zum ersten Mal komme?</summary><p>Ja, bitte vereinbaren Sie vorab einen Termin. So nehmen wir uns Zeit für Ihre Fragen und Ihre Wünsche.</p></details>
-      <details class="reveal"><summary>Welche Behandlungen bieten Sie an?</summary><p>Lashlift, Korean Lashlift, Browlift mit Tint, Russian Pedicure, professionelle Fußpflege sowie Waxing und Sugaring.</p></details>
+      <details class="reveal"><summary>Wie läuft ein Termin ab?</summary><div class="inh"><div><p>Wir besprechen zuerst Ihren Wunsch, dann beginnt die Behandlung in Ruhe. Zum Schluss zeigen wir Ihnen das Ergebnis und geben Tipps für die Pflege zu Hause.</p></div></div></details>
+      <details class="reveal"><summary>Wie vereinbare ich einen Termin?</summary><div class="inh"><div><p>Rufen Sie uns an, schreiben Sie uns auf Instagram oder nutzen Sie das Formular unten. Termine gibt es nach Vereinbarung.</p></div></div></details>
+      <details class="reveal"><summary>Brauche ich einen Termin für ein Lashlift, wenn ich zum ersten Mal komme?</summary><div class="inh"><div><p>Ja, bitte vereinbaren Sie vorab einen Termin. So nehmen wir uns Zeit für Ihre Fragen und Ihre Wünsche.</p></div></div></details>
+      <details class="reveal"><summary>Welche Behandlungen bieten Sie an?</summary><div class="inh"><div><p>Lashlift, Korean Lashlift, Browlift mit Tint, Russian Pedicure, professionelle Fußpflege sowie Waxing und Sugaring.</p></div></div></details>
     </div>
   </div>
 </section>
@@ -176,6 +176,23 @@
   var b=document.querySelector('.burger'),n=document.getElementById('nav');
   b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
   n.addEventListener('click',function(e){if(e.target.tagName==='A'){n.classList.remove('open');b.setAttribute('aria-expanded','false')}});
+  var h=document.querySelector('header'),on=false;
+  function sc(){var x=window.scrollY>8;if(x!==on){on=x;h.classList.toggle('scrolled',x)}}
+  window.addEventListener('scroll',sc,{passive:true});sc();
+  var fq=document.getElementById('faq');
+  fq.classList.add('js');
+  Array.prototype.forEach.call(fq.querySelectorAll('details'),function(d){
+    d.querySelector('summary').addEventListener('click',function(e){
+      e.preventDefault();
+      if(d.classList.contains('auf')){
+        d.classList.remove('auf');
+        d._t=setTimeout(function(){d.removeAttribute('open')},260);
+      }else{
+        clearTimeout(d._t);d.setAttribute('open','');
+        requestAnimationFrame(function(){requestAnimationFrame(function(){d.classList.add('auf')})});
+      }
+    });
+  });
   document.getElementById('kontaktformular').addEventListener('submit',function(e){e.preventDefault();this.classList.add('fertig')});
 })();
 </script>

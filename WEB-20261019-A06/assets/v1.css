@@ -8,6 +8,8 @@
   --line: rgba(31, 42, 68, 0.14);
   --gap: clamp(4rem, 8vw, 7rem);
   --wrap: 1240px;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --rise: 14px;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
@@ -49,11 +51,11 @@ p { margin: 0; max-width: 65ch; }
   background: var(--rose); color: var(--ink);
   font-weight: 600; font-size: 1rem; text-decoration: none;
   border: 1px solid var(--rose); border-radius: 999px;
-  transition: transform 0.25s cubic-bezier(.2,.8,.2,1), background 0.25s;
+  transition: transform 160ms var(--ease-out), background-color 160ms var(--ease-out);
   cursor: pointer; font-family: inherit;
 }
 .btn:hover { background: #d6a18d; }
-.btn:active { transform: translateY(1px); }
+.btn:active, .menu-btn:active { transform: scale(0.97); }
 .btn:focus-visible, a:focus-visible, summary:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
   outline: 3px solid var(--ink); outline-offset: 3px;
 }
@@ -76,6 +78,7 @@ p { margin: 0; max-width: 65ch; }
 .menu-btn {
   min-width: 44px; min-height: 44px; border: 1px solid var(--line); background: transparent;
   border-radius: 999px; padding: 0 1rem; font: inherit; color: var(--ink); cursor: pointer;
+  transition: transform 160ms var(--ease-out);
 }
 .nav.is-open {
   display: flex; flex-direction: column; position: absolute; left: 0; right: 0; top: 100%;
@@ -180,7 +183,7 @@ summary {
   font-family: "Instrument Serif", serif; font-size: 1.4rem;
 }
 summary::-webkit-details-marker { display: none; }
-summary::after { content: "+"; font-family: "Geist", sans-serif; font-size: 1.5rem; color: var(--rose-dark); transition: transform 0.3s; }
+summary::after { content: "+"; font-family: "Geist", sans-serif; font-size: 1.5rem; color: var(--rose-dark); transition: transform 200ms var(--ease-out); }
 details[open] summary::after { transform: rotate(45deg); }
 details p { color: var(--slate); padding-bottom: 1.25rem; }
 @media (min-width: 900px) {
@@ -216,7 +219,24 @@ textarea { min-height: 120px; resize: vertical; }
 .site-footer small { display: block; opacity: 0.75; margin-top: 0.5rem; }
 
 /* Motion */
+@keyframes rise-in { from { opacity: 0; transform: translateY(var(--rise)); } to { opacity: 1; transform: none; } }
+.hero-copy > *, .hero-img { animation: rise-in 600ms var(--ease-out) both; }
+.hero-copy > :nth-child(1) { animation-delay: 0ms; }
+.hero-copy > :nth-child(2) { animation-delay: 70ms; }
+.hero-copy > :nth-child(3) { animation-delay: 140ms; }
+.hero-copy > :nth-child(4) { animation-delay: 210ms; }
+.hero-img { animation-delay: 120ms; }
+details[open] p { animation: rise-in 200ms var(--ease-out) both; --rise: -6px; }
+.nav.is-open { animation: rise-in 200ms var(--ease-out) both; --rise: -8px; }
+.form-done:not([hidden]) { animation: rise-in 240ms var(--ease-out) both; --rise: 8px; }
+.card-img img { transition: transform 240ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .card-img img { transform: scale(1.03); }
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  * { transition: none !important; animation: none !important; }
+  :root { --rise: 0px; }
+  .hero-copy > *, .hero-img, details[open] p, .nav.is-open, .form-done:not([hidden]) { animation-duration: 200ms; animation-delay: 0ms; --rise: 0px; }
+  .btn:active, .menu-btn:active, .card:hover .card-img img { transform: none; }
+  summary::after { transition: none; }
 }

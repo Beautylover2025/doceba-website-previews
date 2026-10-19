@@ -162,6 +162,7 @@
   var b=document.querySelector('.menu-btn'),n=document.getElementById('nav');
   b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
   n.addEventListener('click',function(e){if(e.target.tagName==='A'){n.classList.remove('open');b.setAttribute('aria-expanded','false')}});
+  var h=document.querySelector('header.top');function sc(){h.classList.toggle('scrolled',window.scrollY>8)}window.addEventListener('scroll',sc,{passive:true});sc();
   var f=document.getElementById('kform'),t=document.getElementById('thanks');
   f.addEventListener('submit',function(e){e.preventDefault();f.style.display='none';t.classList.add('show')});
 })();

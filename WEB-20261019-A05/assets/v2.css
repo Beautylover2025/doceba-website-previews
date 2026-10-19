@@ -3,6 +3,7 @@
   --pad:clamp(1.25rem,5vw,3rem);
   --gap:clamp(4rem,8vw,7rem);
   --ease:cubic-bezier(.2,.8,.2,1);
+  --ease-out:cubic-bezier(0.23,1,0.32,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -16,9 +17,9 @@ h3{font-size:clamp(1.6rem,3vw,2.2rem)}
 p{max-width:60ch;color:#C9CDD2}
 .wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 var(--pad)}
 .tag{font-size:.8125rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ice);font-weight:700;margin-bottom:.9rem}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.8rem 1.6rem;background:var(--ice);color:var(--coal);text-decoration:none;font:inherit;font-weight:700;border:1px solid var(--ice);border-radius:999px;cursor:pointer;transition:transform .25s var(--ease),background .25s}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.8rem 1.6rem;background:var(--ice);color:var(--coal);text-decoration:none;font:inherit;font-weight:700;border:1px solid var(--ice);border-radius:999px;cursor:pointer;transition:transform 160ms var(--ease-out),background 200ms}
 .btn:hover{background:#7ad3d6}
-.btn:active{transform:translateY(1px)}
+.btn:active{transform:scale(.97)}
 .btn.ghost{background:transparent;color:var(--text);border-color:#4a4e56}
 .btn.ghost:hover{border-color:var(--ice);color:var(--ice)}
 :focus-visible{outline:2px solid var(--ice);outline-offset:3px}
@@ -27,7 +28,8 @@ header.top{position:absolute;top:0;left:0;right:0;z-index:5}
 header.top .wrap{display:flex;align-items:center;justify-content:space-between;min-height:68px}
 .brand{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.06em;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
 .brand span{color:var(--ice)}
-header.top nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 .9rem;text-decoration:none;font-size:.9rem;font-weight:600;background:rgba(27,29,33,.7);border-radius:999px}
+header.top nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 .9rem;text-decoration:none;font-size:.9rem;font-weight:600;background:rgba(27,29,33,.7);border-radius:999px;transition:transform 160ms var(--ease-out)}
+header.top nav a:active{transform:scale(.97)}
 
 /* hero: Bild oben, Text in eigener Zone darunter */
 .hero-img{height:min(70dvh,640px);min-height:380px}
@@ -54,6 +56,8 @@ section{padding:var(--gap) 0}
 /* feed */
 .feed-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:1rem;margin-bottom:2rem}
 .feed{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 var(--pad) 1rem;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--graphite) transparent}
+.card img{transition:transform 280ms var(--ease-out)}
+@media(hover:hover) and (pointer:fine){.card:hover img{transform:scale(1.03)}}
 .card{flex:0 0 min(78vw,320px);scroll-snap-align:start;background:var(--graphite);border-radius:20px;overflow:hidden}
 .card img{width:100%;aspect-ratio:3/4}
 .card p{padding:1rem 1.2rem 1.25rem;font-size:.95rem}
@@ -95,7 +99,7 @@ label{display:block;font-size:.9rem;font-weight:600;margin-bottom:.35rem}
 input,textarea{width:100%;font:inherit;padding:.8rem 1rem;min-height:48px;background:var(--coal);border:1px solid #4a4e56;border-radius:12px;color:var(--text)}
 textarea{min-height:130px;resize:vertical}
 .thanks{display:none;padding:1.25rem;border:1px solid var(--ice);border-radius:12px}
-.thanks.show{display:block}
+.thanks.show{display:block;animation:rise 240ms var(--ease-out) both}
 @media(min-width:860px){.k-grid{grid-template-columns:1fr 1fr;gap:5rem}}
 
 footer{padding:3rem 0 110px;color:var(--steel)}
@@ -103,7 +107,18 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:1rem 2.5rem;justify-content:space-b
 footer a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;margin-right:1.25rem}
 footer a:hover{color:var(--ice)}
 
+/* motion */
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+.hero-img img{animation:fade-in 600ms var(--ease-out) both}
+.hero-copy h1{animation:rise 550ms var(--ease-out) 150ms both}
+.hero-copy .sub{animation:rise 500ms var(--ease-out) 250ms both}
+.hero-copy .hero-actions{animation:rise 500ms var(--ease-out) 350ms both}
+
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  *{animation:none!important;transition:none!important}
+  .status-tile.open .dot{animation:none}
+  .hero-img img,.hero-copy h1,.hero-copy .sub,.hero-copy .hero-actions,.thanks.show{animation-name:fade-in;animation-duration:200ms;animation-delay:0ms}
+  .btn:active,header.top nav a:active{transform:none}
+  .card:hover img{transform:none}
 }

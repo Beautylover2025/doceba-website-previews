@@ -1,4 +1,4 @@
-:root{--bg:#121110;--ink:#F2EFEA;--panel:#2A2826;--acc:#C8452C;--mute:#b9b3aa;--max:1280px;--pad:clamp(1.25rem,5vw,3rem);--gap:clamp(3.5rem,9vw,7rem)}
+:root{--bg:#121110;--ink:#F2EFEA;--panel:#2A2826;--acc:#C8452C;--mute:#b9b3aa;--max:1280px;--pad:clamp(1.25rem,5vw,3rem);--gap:clamp(3.5rem,9vw,7rem);--ease-out:cubic-bezier(0.23,1,0.32,1)}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:'Fraunces',serif;font-size:1.0625rem;line-height:1.65;overflow-x:hidden}
@@ -13,22 +13,27 @@ p{max-width:65ch}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
 section{padding:var(--gap) 0}
 .label{font-family:'Bebas Neue',sans-serif;letter-spacing:.14em;color:var(--acc);font-size:1.15rem;display:block;margin-bottom:1rem}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.6rem 1.8rem;background:var(--acc);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em;text-decoration:none;border:0;cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.2,1),background .3s}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.6rem 1.8rem;background:var(--acc);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.06em;text-decoration:none;border:0;cursor:pointer;transition:transform .16s var(--ease-out),background .2s}
 .btn:hover{background:#d9573d}
-.btn:active{transform:translateY(1px)}
+.btn:active{transform:scale(.97)}
 header{position:absolute;inset:0 0 auto 0;z-index:20}
 .nav{display:flex;justify-content:space-between;align-items:center;min-height:72px}
 .logo{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.08em;text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
 .menu{display:none;list-style:none;padding:0}
 .menu a{display:inline-flex;align-items:center;min-height:44px;padding:0 .9rem;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.08em}
 .menu a:hover{color:var(--acc)}
-.burger{min-width:44px;min-height:44px;background:none;border:1px solid var(--panel);color:var(--ink);font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;padding:0 .9rem;cursor:pointer}
-.menu.open{display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:var(--bg);padding:1rem var(--pad) 1.5rem;border-bottom:1px solid var(--panel)}
+.burger{min-width:44px;min-height:44px;background:none;border:1px solid var(--panel);color:var(--ink);font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;padding:0 .9rem;cursor:pointer;transition:transform .16s var(--ease-out)}
+.burger:active{transform:scale(.97)}
+.menu.open{display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:var(--bg);padding:1rem var(--pad) 1.5rem;border-bottom:1px solid var(--panel);animation:menuIn .2s var(--ease-out)}
 .hero{min-height:100dvh;display:grid;padding:110px 0 3rem;align-items:center}
 .hero .wrap{display:grid;gap:2.5rem;width:100%}
 .hero-copy .sub{font-size:1.2rem;color:var(--mute);margin:1.5rem 0 2rem}
+.hero-copy>*{animation:rise .52s var(--ease-out) both}
+.hero-copy .sub{animation-delay:.08s}
+.hero-copy .btn{animation-delay:.16s}
+.hero-copy .hero-m{animation-delay:.24s}
 .inl{display:none}
-.hero-img{aspect-ratio:4/5;overflow:hidden;background:var(--panel)}
+.hero-img{aspect-ratio:4/5;overflow:hidden;background:var(--panel);animation:rise .52s var(--ease-out) .2s both}
 .hero-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1)}
 .hero-m{display:block;aspect-ratio:16/9;margin-top:1.5rem;overflow:hidden}
 .hero-m img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1)}
@@ -38,13 +43,14 @@ header{position:absolute;inset:0 0 auto 0;z-index:20}
 .zig p+p{margin-top:1rem}
 .band{background:var(--ink);color:var(--bg)}
 .filters{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.5rem 0 2rem}
-.filters button{min-height:44px;padding:0 1.2rem;background:none;border:1px solid var(--bg);color:var(--bg);font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.08em;cursor:pointer;transition:background .3s,color .3s}
+.filters button{min-height:44px;padding:0 1.2rem;background:none;border:1px solid var(--bg);color:var(--bg);font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.08em;cursor:pointer;transition:background .2s,color .2s,transform .16s var(--ease-out)}
+.filters button:active{transform:scale(.97)}
 .filters button[aria-pressed=true]{background:var(--bg);color:var(--ink)}
 .masonry{columns:1;column-gap:1rem}
-.masonry figure{break-inside:avoid;margin:0 0 1rem;overflow:hidden}
+.masonry figure{break-inside:avoid;margin:0 0 1rem;overflow:hidden;animation:rise .24s var(--ease-out) both}
 .masonry .fr{overflow:hidden;background:var(--panel)}
-.masonry img{width:100%;height:auto;filter:grayscale(1) contrast(1.1);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
-.masonry figure:hover img{transform:scale(1.04)}
+.masonry img{width:100%;height:auto;filter:grayscale(1) contrast(1.1);transition:transform .3s var(--ease-out)}
+@media(hover:hover) and (pointer:fine){.masonry figure:hover img{transform:scale(1.03)}}
 .masonry figcaption{padding:.6rem 0 0;font-family:'Bebas Neue',sans-serif;letter-spacing:.1em;font-size:1.15rem}
 .masonry figure[hidden]{display:none}
 .team{display:grid;gap:2.5rem;margin-top:2rem}
@@ -63,11 +69,12 @@ header{position:absolute;inset:0 0 auto 0;z-index:20}
 .faq{margin-top:2rem;border-bottom:1px solid var(--panel)}
 .faq h3{font-size:inherit}
 .faq button{width:100%;min-height:56px;display:flex;justify-content:space-between;align-items:center;gap:1rem;background:none;border:0;border-top:1px solid var(--panel);color:var(--ink);text-align:left;font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.03em;cursor:pointer;padding:.6rem 0}
-.faq button span{color:var(--acc);transition:transform .3s}
+.faq button span{color:var(--acc);transition:transform .2s var(--ease-out)}
 .faq button[aria-expanded=true] span{transform:rotate(45deg)}
-.faq .a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s cubic-bezier(.2,.8,.2,1)}
-.faq .a>div{overflow:hidden}
+.faq .a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .26s var(--ease-out)}
+.faq .a>div{overflow:hidden;opacity:0;transition:opacity .2s var(--ease-out)}
 .faq .a.open{grid-template-rows:1fr}
+.faq .a.open>div{opacity:1}
 .faq .a p{padding:.2rem 0 1.4rem;color:var(--mute)}
 .contact{display:grid;gap:3rem}
 .facts{list-style:none;padding:0;margin:1.5rem 0}
@@ -78,10 +85,13 @@ form{display:grid;gap:1.1rem}
 label{display:grid;gap:.4rem;font-family:'Bebas Neue',sans-serif;letter-spacing:.1em;font-size:1.15rem}
 input,textarea{width:100%;min-height:48px;padding:.7rem .9rem;background:var(--panel);border:1px solid #3d3a37;color:var(--ink);font:inherit;font-size:1rem;border-radius:0}
 textarea{min-height:130px;resize:vertical}
-.ok{display:none;padding:1.2rem;border:1px solid var(--acc);font-size:1.15rem}
+.ok{display:none;padding:1.2rem;border:1px solid var(--acc);font-size:1.15rem;animation:rise .28s var(--ease-out) both}
 footer{border-top:1px solid var(--panel);padding:3rem 0 130px;color:var(--mute);font-size:.98rem}
 footer .wrap{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between}
 footer a{display:inline-flex;align-items:center;min-height:44px;margin-right:1.2rem}
+@keyframes rise{from{opacity:0;translate:0 16px}}
+@keyframes menuIn{from{opacity:0;translate:0 -8px}}
+@keyframes fadeIn{from{opacity:0}}
 .rv{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
 .rv.in{opacity:1;transform:none}
 @media(min-width:768px){
@@ -100,4 +110,10 @@ footer a{display:inline-flex;align-items:center;min-height:44px;margin-right:1.2
 .contact{grid-template-columns:1fr 1fr;gap:4rem}
 }
 @media(min-width:1024px){.masonry{columns:3}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){
+*{scroll-behavior:auto!important}
+.rv{opacity:1;transform:none;transition:none}
+.btn,.burger,.filters button,.faq button span,.masonry img,.faq .a{transition:none}
+.btn:active,.burger:active,.filters button:active,.masonry figure:hover img{transform:none}
+.hero-copy>*,.hero-img,.menu.open,.masonry figure,.ok{animation-name:fadeIn;animation-duration:.2s;animation-timing-function:linear}
+}

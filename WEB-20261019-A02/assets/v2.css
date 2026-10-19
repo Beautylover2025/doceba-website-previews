@@ -1,4 +1,4 @@
-:root{--bg:#FAF7F0;--ink:#1F1D1B;--sand:#EBE4D4;--acc:#D9453F;--mute:#5d5850;--max:1240px;--pad:clamp(1.25rem,5vw,3rem);--gap:clamp(3.5rem,8vw,6.5rem)}
+:root{--bg:#FAF7F0;--ink:#1F1D1B;--sand:#EBE4D4;--acc:#D9453F;--mute:#5d5850;--max:1240px;--pad:clamp(1.25rem,5vw,3rem);--gap:clamp(3.5rem,8vw,6.5rem);--ease-out:cubic-bezier(0.23,1,0.32,1)}
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:'Space Grotesk',sans-serif;font-size:1.0625rem;line-height:1.65;overflow-x:hidden}
@@ -24,12 +24,19 @@ header{border-bottom:2px solid var(--ink);background:var(--bg)}
 .menu{display:none;list-style:none;padding:0}
 .menu a{display:inline-flex;align-items:center;min-height:44px;padding:0 .9rem;text-decoration:none;font-weight:700;font-size:.95rem}
 .menu a:hover{color:var(--acc)}
-.burger{min-width:44px;min-height:44px;padding:0 1rem;background:var(--sand);border:2px solid var(--ink);border-radius:999px;font:700 .95rem 'Space Grotesk',sans-serif;cursor:pointer}
-.menu.open{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:64px;background:var(--bg);padding:.8rem var(--pad) 1.2rem;border-bottom:2px solid var(--ink);z-index:10}
+.burger{min-width:44px;min-height:44px;padding:0 1rem;background:var(--sand);border:2px solid var(--ink);border-radius:999px;font:700 .95rem 'Space Grotesk',sans-serif;cursor:pointer;transition:transform .16s var(--ease-out)}
+.burger:active{transform:scale(.97)}
+.menu.open{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:64px;background:var(--bg);padding:.8rem var(--pad) 1.2rem;border-bottom:2px solid var(--ink);z-index:10;animation:menuIn .2s var(--ease-out)}
 header{position:relative}
 .hero{padding:clamp(2.5rem,6vw,4.5rem) 0 var(--gap);min-height:min(calc(100dvh - 66px),860px);display:grid;align-items:center}
 .hero .wrap{display:grid;gap:2.5rem;align-items:center}
 .hero p.sub{font-size:1.2rem;margin:1.6rem 0 2rem;color:var(--mute)}
+.hero h1,.hero .sub,.hero .btn,.hero .tile{animation:rise .52s var(--ease-out) both}
+.hero .sub{animation-delay:.07s}
+.hero .btn{animation-delay:.14s}
+.hero .tile.big{animation-delay:.1s}
+.hero .tile:nth-child(2){animation-delay:.17s}
+.hero .tile:nth-child(3){animation-delay:.24s}
 .sheet{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem}
 .tile{background:var(--sand);border:2px solid var(--ink);border-radius:14px;overflow:hidden;aspect-ratio:1}
 .tile img{width:100%;height:100%;object-fit:cover}
@@ -39,8 +46,8 @@ header{position:relative}
 .card{background:var(--bg);border:2px solid var(--ink);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
 .card .im{aspect-ratio:4/3;overflow:hidden;border-bottom:2px solid var(--ink);background:var(--sand)}
 .card .im img{width:100%;height:100%;object-fit:cover}
-.card .im.z img{transform:scale(2.3);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
-.card:hover .im.z img{transform:scale(2.5)}
+.card .im.z img{transform:scale(2.3);transition:transform .3s var(--ease-out)}
+@media(hover:hover) and (pointer:fine){.card:hover .im.z img{transform:scale(2.37)}}
 .card .tx{padding:1.1rem 1.2rem 1.3rem;display:flex;flex-direction:column;gap:.8rem;align-items:flex-start;flex:1;justify-content:space-between}
 .card p{font-size:.98rem;color:var(--mute)}
 .car{position:relative;margin-top:2rem}
@@ -51,9 +58,9 @@ header{position:relative}
 .track .tx{padding:1rem 1.2rem 1.3rem}
 .track .tx p{font-size:.98rem;color:var(--mute);margin-top:.3rem}
 .arrows{display:flex;gap:.6rem;margin-top:.5rem}
-.arrows button{min-width:48px;min-height:48px;border-radius:50%;border:2px solid var(--ink);background:var(--bg);font-size:1.3rem;cursor:pointer;transition:background .25s,transform .25s}
+.arrows button{min-width:48px;min-height:48px;border-radius:50%;border:2px solid var(--ink);background:var(--bg);font-size:1.3rem;cursor:pointer;transition:background .2s,transform .16s var(--ease-out)}
 .arrows button:hover{background:var(--acc);color:#fff}
-.arrows button:active{transform:translateY(1px)}
+.arrows button:active{transform:scale(.97)}
 .walk{display:grid;gap:2.5rem;align-items:center}
 .walk .ph{aspect-ratio:4/3;border:2px solid var(--ink);border-radius:16px;overflow:hidden}
 .walk .ph img{width:100%;height:100%;object-fit:cover}
@@ -75,10 +82,13 @@ form{display:grid;gap:1rem}
 label{display:grid;gap:.35rem;font-weight:700;font-size:.95rem}
 input,textarea{width:100%;min-height:48px;padding:.7rem .9rem;background:var(--bg);border:2px solid var(--ink);border-radius:10px;font:inherit;font-size:1rem;color:var(--ink)}
 textarea{min-height:130px;resize:vertical}
-.ok{display:none;padding:1.2rem;border:2px solid var(--ink);border-radius:12px;background:var(--bg);font-weight:700}
+.ok{display:none;padding:1.2rem;border:2px solid var(--ink);border-radius:12px;background:var(--bg);font-weight:700;animation:rise .28s var(--ease-out) both}
 footer{border-top:2px solid var(--ink);padding:2.5rem 0 130px;font-size:.95rem;color:var(--mute)}
 footer .wrap{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between}
 footer a{display:inline-flex;align-items:center;min-height:44px;margin-right:1.2rem}
+@keyframes rise{from{opacity:0;translate:0 16px}}
+@keyframes menuIn{from{opacity:0;translate:0 -8px}}
+@keyframes fadeIn{from{opacity:0}}
 .rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1)}
 .rv.in{opacity:1;transform:none}
 @media(min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}.quotes{grid-template-columns:repeat(3,1fr)}}
@@ -93,4 +103,12 @@ footer a{display:inline-flex;align-items:center;min-height:44px;margin-right:1.2
 .track>article{flex-basis:300px}
 }
 @media(min-width:1024px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}h1{transform:none}}
+@media(prefers-reduced-motion:reduce){
+*{scroll-behavior:auto!important}
+.rv{opacity:1;transform:none;transition:none}
+h1{transform:none}
+.burger,.arrows button,.card .im.z img{transition:none}
+.burger:active,.arrows button:active{transform:none}
+.card:hover .im.z img{transform:scale(2.3)}
+.hero h1,.hero .sub,.hero .btn,.hero .tile,.menu.open,.ok{animation-name:fadeIn;animation-duration:.2s;animation-timing-function:linear}
+}

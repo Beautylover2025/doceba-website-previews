@@ -14,6 +14,13 @@
     });
   }
 
+  var header = document.querySelector('.top');
+  if (header) {
+    var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 8); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
   var tabs = document.querySelectorAll('[role="tab"]');
   tabs.forEach(function (tab) {
     tab.addEventListener('click', function () {

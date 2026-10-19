@@ -185,6 +185,10 @@
 
 <script>
 (function () {
+  var hdr = document.querySelector('.top');
+  function onScroll() { hdr.classList.toggle('scrolled', window.scrollY > 8); }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
   var now = new Date();
   var parts = new Intl.DateTimeFormat('de-DE', { timeZone: 'Europe/Berlin', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(now);
   var wd = '', h = 0, m = 0;

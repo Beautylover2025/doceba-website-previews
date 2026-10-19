@@ -108,7 +108,7 @@
       </ol>
     </div>
   </section>
-  <div class="band"><img src="img/stoffe-details.jpg" width="1600" height="500" loading="lazy" alt="Stoffe und Nähdetails in warmem Licht"></div>
+  <div class="band reveal"><img src="img/stoffe-details.jpg" width="1600" height="500" loading="lazy" alt="Stoffe und Nähdetails in warmem Licht"></div>
 
   <section id="ueber-uns" class="sec">
     <div class="wrap about">
@@ -200,6 +200,10 @@
 
 <script>
 (function () {
+  var hdr = document.querySelector('.top');
+  function onScroll() { hdr.classList.toggle('scrolled', window.scrollY > 8); }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
   var btn = document.querySelector('.menu-btn');
   var nav = document.getElementById('nav');
   btn.addEventListener('click', function () {

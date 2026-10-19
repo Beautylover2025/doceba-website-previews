@@ -1,4 +1,4 @@
-:root{--ivory:#FBF8F2;--green:#2F3E34;--sage:#A9B8A0;--sage-soft:#E4EADF;--gold:#B8975A;--gold-dark:#7F6230;--line:rgba(47,62,52,.22);--maxw:1200px;--sec:clamp(4rem,8vw,7rem)}
+:root{--ivory:#FBF8F2;--green:#2F3E34;--sage:#A9B8A0;--sage-soft:#E4EADF;--gold:#B8975A;--gold-dark:#7F6230;--line:rgba(47,62,52,.22);--maxw:1200px;--sec:clamp(4rem,8vw,7rem);--ease-out:cubic-bezier(0.23,1,0.32,1)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--ivory);color:var(--green);font-family:"Montserrat",system-ui,sans-serif;font-size:1rem;line-height:1.7;-webkit-text-size-adjust:100%;overflow-x:hidden}
@@ -12,9 +12,9 @@ p{margin:0 0 1rem;max-width:62ch}
 .wrap{width:min(100% - 2.5rem,var(--maxw));margin-inline:auto}
 .eyebrow{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--gold-dark);margin:0 0 1rem}
 section{padding-block:var(--sec)}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.75rem 1.7rem;background:var(--gold);color:var(--green);font-weight:500;font-size:.95rem;text-decoration:none;border:0;border-radius:999px;cursor:pointer;font-family:inherit;transition:transform .35s cubic-bezier(.2,.8,.2,1),background .3s}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.75rem 1.7rem;background:var(--gold);color:var(--green);font-weight:500;font-size:.95rem;text-decoration:none;border:0;border-radius:999px;cursor:pointer;font-family:inherit;transition:transform 160ms var(--ease-out),background .3s}
 .btn:hover{background:#c8a76a}
-.btn:active{transform:translateY(1px) scale(.99)}
+.btn:active{transform:scale(.97)}
 .btn-line{background:transparent;border:1px solid var(--green)}
 .btn-line:hover{background:var(--green);color:var(--ivory)}
 :focus-visible{outline:2px solid var(--gold-dark);outline-offset:3px}
@@ -26,7 +26,8 @@ section{padding-block:var(--sec)}
 .site-nav a{text-decoration:none;font-size:.9rem;padding:.6rem .8rem;display:inline-block}
 .site-nav a:hover{color:var(--gold-dark)}
 .header-cta{display:none}
-.menu-toggle{min-width:44px;min-height:44px;background:none;border:1px solid var(--line);border-radius:999px;color:var(--green);font:inherit;font-size:.85rem;padding:0 1rem;cursor:pointer}
+.menu-toggle{min-width:44px;min-height:44px;background:none;border:1px solid var(--line);border-radius:999px;color:var(--green);font:inherit;font-size:.85rem;padding:0 1rem;cursor:pointer;transition:transform 160ms var(--ease-out)}
+.menu-toggle:active{transform:scale(.97)}
 .site-nav.is-open{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:100%;background:var(--ivory);padding:1rem 1.25rem 1.5rem;border-bottom:1px solid var(--line)}
 .site-nav.is-open a{padding:.85rem 0;border-bottom:1px solid var(--line)}
 .site-nav.is-open .nav-book{display:inline-flex;margin-top:1rem;border:0;justify-content:center;padding:.75rem 1.7rem}
@@ -147,4 +148,18 @@ section{padding-block:var(--sec)}
 .logo-foot{background:var(--ivory);padding:.7rem 1rem;border-radius:6px;display:inline-block;margin-bottom:1rem}
 .logo-foot img{height:30px;width:auto;object-fit:contain}
 
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+@keyframes hero-in{from{opacity:0;transform:translateY(14px)}}
+@keyframes hero-fade{from{opacity:0}}
+@keyframes nav-in{from{opacity:0;transform:translateY(-8px)}}
+@keyframes thanks-in{from{opacity:0;transform:translateY(8px)}}
+.hero-grid>div:first-child>*{animation:hero-in 560ms var(--ease-out) both}
+.hero-grid>div:first-child>:nth-child(2){animation-delay:70ms}
+.hero-grid>div:first-child>:nth-child(3){animation-delay:140ms}
+.hero-grid>div:first-child>:nth-child(4){animation-delay:210ms;animation-fill-mode:backwards}
+.hero-img{animation:hero-in 640ms var(--ease-out) 100ms both}
+.site-nav.is-open{animation:nav-in 200ms var(--ease-out) backwards}
+.form-thanks:not([hidden]){animation:thanks-in 260ms var(--ease-out) backwards}
+
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}
+.hero-grid>div:first-child>*,.hero-img{animation:hero-fade 240ms ease-out backwards!important}
+.site-nav.is-open,.form-thanks:not([hidden]){animation:hero-fade 150ms ease-out backwards!important}}

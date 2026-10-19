@@ -27,7 +27,7 @@ header{border-bottom:2px solid var(--ink);background:var(--bg)}
 .burger{min-width:44px;min-height:44px;padding:0 1rem;background:var(--sand);border:2px solid var(--ink);border-radius:999px;font:700 .95rem 'Space Grotesk',sans-serif;cursor:pointer}
 .menu.open{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:64px;background:var(--bg);padding:.8rem var(--pad) 1.2rem;border-bottom:2px solid var(--ink);z-index:10}
 header{position:relative}
-.hero{padding:clamp(2.5rem,6vw,4.5rem) 0 var(--gap);min-height:calc(100dvh - 66px)}
+.hero{padding:clamp(2.5rem,6vw,4.5rem) 0 var(--gap);min-height:min(calc(100dvh - 66px),860px);display:grid;align-items:center}
 .hero .wrap{display:grid;gap:2.5rem;align-items:center}
 .hero p.sub{font-size:1.2rem;margin:1.6rem 0 2rem;color:var(--mute)}
 .sheet{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem}

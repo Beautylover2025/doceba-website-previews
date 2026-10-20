@@ -1,0 +1,69 @@
+:root{--ease-out:cubic-bezier(0.23,1,0.32,1);--stagger:70ms;--rise:16px;--hero-dur:600ms}
+
+/* Press-Feedback */
+.btn,.menu-toggle{transition:transform 160ms ease-out,background .2s,color .2s}
+.btn:active,.menu-toggle:active{transform:scale(.97)}
+
+/* Hero-Auftritt (einmalig beim Laden) */
+@keyframes rise{from{opacity:0;transform:translateY(var(--rise))}}
+.hero h1 span,.hero .eyebrow,.hero .eyebrow+h1,.hero .lead,.hero-cta,.hero-fig,.stats{
+  animation:rise var(--hero-dur) var(--ease-out) both;
+  animation-delay:calc(var(--i,0)*var(--stagger))}
+.hero h1 span+span,.hero .eyebrow+h1{--i:1}
+.hero .lead{--i:2}
+.hero-cta{--i:3}
+.hero-fig{--i:1;--hero-dur:700ms}
+.stats{--i:4}
+
+/* Header: dezenter Schatten nach dem Scrollen */
+.site-header::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px;z-index:-1;pointer-events:none;
+  background:linear-gradient(rgba(0,0,0,.16),rgba(0,0,0,0));opacity:0;transition:opacity 200ms var(--ease-out)}
+.site-header.is-scrolled::after{opacity:1}
+
+/* Mobiles Menü: Eintritt */
+@media(max-width:899.98px){
+  .nav{transition:opacity 200ms var(--ease-out),transform 200ms var(--ease-out)}
+  @starting-style{.nav.is-open{opacity:0;transform:translateY(-8px)}}
+}
+
+/* Akkordeon (Leistungen v1, FAQ) */
+.svc .plus,.faq summary::after{transition:transform 240ms var(--ease-out),background .2s}
+@supports selector(::details-content){
+  .faq details::details-content,details.svc::details-content{
+    display:grid;grid-template-rows:0fr;overflow:hidden;
+    transition:grid-template-rows 250ms var(--ease-out),content-visibility 250ms allow-discrete}
+  .faq details[open]::details-content,details.svc[open]::details-content{grid-template-rows:1fr}
+  .faq details p,details.svc .svc-body{overflow:hidden;opacity:0;transition:opacity 200ms var(--ease-out)}
+  .faq details[open] p,details.svc[open] .svc-body{opacity:1}
+}
+
+/* Formular-Erfolg */
+@keyframes done-in{from{opacity:0;transform:translateY(8px)}}
+.form-done:not([hidden]){animation:done-in 260ms var(--ease-out) both}
+
+/* Hover nur mit Maus */
+@media (hover:hover) and (pointer:fine){
+  .gal img{transition:transform 280ms var(--ease-out)}
+  .gal figure:hover img{transform:scale(1.03)}
+}
+
+/* Reduzierte Bewegung: nur kurze Opacity-Übergänge */
+@media (prefers-reduced-motion:reduce){
+  :root{--stagger:0ms;--rise:0px;--hero-dur:250ms}
+  .hero-fig{--hero-dur:250ms}
+  .btn,.menu-toggle{transition:background .2s,color .2s}
+  .btn:active,.menu-toggle:active{transform:none}
+  .svc .plus,.faq summary::after{transition:background .2s}
+  .nav{transition:opacity 150ms linear}
+  @starting-style{.nav.is-open{transform:none}}
+  .form-done:not([hidden]){animation-name:done-fade;animation-duration:200ms;animation-timing-function:linear}
+  .gal img{transition:none}
+  .gal figure:hover img{transform:none}
+}
+@keyframes done-fade{from{opacity:0}}
+@supports selector(::details-content){
+  @media (prefers-reduced-motion:reduce){
+    .faq details::details-content,details.svc::details-content{transition:none}
+    .faq details p,details.svc .svc-body{transition:opacity 150ms linear}
+  }
+}
